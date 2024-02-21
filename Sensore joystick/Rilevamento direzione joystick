@@ -1,0 +1,47 @@
+
+const int pinX = A0;
+const int pinY = A1;
+const int pinButton = 2;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pinButton, INPUT_PULLUP);
+}
+
+void loop() {
+
+  int valoreX = analogRead(pinX);
+  int valoreY = analogRead(pinY);
+
+
+  int statoPulsante = digitalRead(pinButton);
+
+
+  String direzione = "";
+  String puls = "";
+
+  if (valoreX > 600) {
+    direzione = "SU";
+  } else if (valoreX < 400) {
+    direzione = "GIU";
+  }
+
+  if (valoreY > 600) {
+    direzione = "DESTRA";
+  } else if (valoreY < 400) {
+    direzione = "SINISTRA";
+  }
+  if(statoPulsante==0){
+    puls+="SCHIACCIATO";
+  }else{
+    puls+="ALZATO";
+  }
+if(direzione!=""){
+  Serial.println(direzione);
+}
+ if(puls=="SCHIACCIATO"){
+   Serial.print(puls);
+   Serial.print("\n");
+}
+  delay(100);
+}
