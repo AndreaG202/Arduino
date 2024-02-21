@@ -1,0 +1,22 @@
+#include "Arduino_LED_Matrix.h"
+
+ArduinoLEDMatrix matrix;
+
+void setup() {
+  Serial.begin(115200);
+  matrix.begin();
+}
+
+const uint32_t a[] = {
+    0xffffffff,
+		0xffffffff,
+		0xffffffff,
+		66
+};
+
+// per creare disegno crearlo su  https://ledmatrix-editor.arduino.cc/
+
+void loop() {
+  matrix.loadFrame(a);
+  delay(500);
+}
