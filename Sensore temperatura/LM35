@@ -1,0 +1,17 @@
+
+void setup() {
+  pinMode(A0,INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int val = analogRead(A0);
+  float temperatura = (val * 0.48876);
+
+  Serial.print("Temperatura: ");
+  Serial.print(temperatura);
+  Serial.println(" °C");
+
+  delay(1000);
+}
