@@ -1,0 +1,28 @@
+
+//sda A4 
+//scd A5
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x3f, 16, 2);
+String str1 = "1234";
+String str2 = "abcd";
+
+void setup(){
+  lcd.init();
+  lcd.backlight();
+}
+ 
+void loop(){
+  lcd.setCursor(0, 0); //(casella di partenza 0-15,riga in cui scrive 0-1)
+  typewriting(str1);
+  lcd.setCursor(0, 1);
+  typewriting(str2);
+  delay(1000);
+}
+ 
+void typewriting(String messaggio){
+
+    lcd.print(messaggio);
+    delay(150);
+  
+}
