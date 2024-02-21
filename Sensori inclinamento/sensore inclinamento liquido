@@ -1,0 +1,13 @@
+void setup() {
+ pinMode(7,INPUT);
+ Serial.begin(9600);
+}
+
+void loop() {
+ int x = digitalRead(7);
+
+if(x==0){
+  Serial.println("ATTIVO");
+}
+delay(100);
+}
