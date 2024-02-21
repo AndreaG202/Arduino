@@ -1,0 +1,16 @@
+//Serve arduino Leonardo
+
+#include <Keyboard.h>
+
+void setup() {
+  pinMode(7, INPUT);
+  Serial.begin(9600);
+  Keyboard.begin();
+}
+
+void loop() {
+  if (digitalRead(7)) {
+    Keyboard.println("CIAO :)");
+    delay(1000); 
+  }
+}
