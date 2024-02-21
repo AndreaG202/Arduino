@@ -1,0 +1,26 @@
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP280.h>
+
+#define BMP_SDA 4 
+#define BMP_SCL 5   
+Adafruit_BMP280 bmp;
+
+void setup() {
+  Serial.begin(9600);
+  bmp.begin();
+}
+
+void loop() {
+  
+  float temperature = bmp.readTemperature();
+  float pressure = bmp.readPressure() / 100.0;
+
+  Serial.print("Temperatura: ");
+  Serial.print(temperature);
+  Serial.print(" °C\tPressione: ");
+  Serial.print(pressure);
+  Serial.println(" hPa");
+
+  delay(1000);
+}
