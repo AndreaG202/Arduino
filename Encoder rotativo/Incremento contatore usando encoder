@@ -1,0 +1,34 @@
+// Definisci i pin dell'encoder
+const int pinSW = 4;  // Pulsante (Switch)
+const int pinDT = 2;  // Pin DT (Data)
+const int pinCLK = 3; // Pin CLK (Clock)
+
+// Variabile per memorizzare il conteggio
+int conteggio = 0;
+
+void setup() {
+  pinMode(pinSW, INPUT_PULLUP);
+  pinMode(pinDT, INPUT);
+  pinMode(pinCLK, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  int statoPulsante = digitalRead(pinSW);
+
+  if (statoPulsante == LOW) {
+    conteggio = 0;
+    Serial.println("0");
+    delay(500);
+  } else {
+    int statoDT = digitalRead(pinDT);
+    int statoCLK = digitalRead(pinCLK);
+
+    if (statoDT != statoCLK) {
+      conteggio++;
+      Serial.println(conteggio);
+      delay(50); 
+    }
+  }
+}
