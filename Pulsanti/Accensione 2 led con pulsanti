@@ -1,0 +1,27 @@
+
+int p1=0;
+int p2=0;
+
+void setup() {
+ pinMode(3,OUTPUT);//led verde
+ pinMode(4,OUTPUT);//led rosso
+ pinMode(7,INPUT);//bottone 1
+ pinMode(8,INPUT);//bottone 2
+ Serial.begin(9600);
+}
+void loop() {
+  p1 = digitalRead(9);
+  p2 = digitalRead(8);
+
+  if (p1 == LOW) {
+    digitalWrite(3, HIGH);
+    digitalWrite(4, LOW);
+  } else if (p2 == LOW) {
+    digitalWrite(4, HIGH);
+    digitalWrite(3, LOW);
+  } else {
+    digitalWrite(3, LOW);
+    digitalWrite(4, LOW);
+  }
+ 
+}
