@@ -1,0 +1,21 @@
+pin bluetooth 1234
+#include <SoftwareSerial.h>
+SoftwareSerial bluetooth(3, 2);// RX->3, TX->2
+
+void setup() {
+  Serial.begin(9600);
+  bluetooth.begin(9600);
+}
+
+void loop() {
+  if (bluetooth.available()) {//ricevo da bluetooth
+    char carattere = bluetooth.read();
+    Serial.print(carattere);
+
+  }
+
+  if (Serial.available()) {//scrivo via monitor seriale
+    char carattere = Serial.read();
+    bluetooth.print(carattere);
+  }
+}
