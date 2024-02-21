@@ -1,0 +1,27 @@
+
+const int trigger = 2;
+const int echo = 3;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+void loop() {
+  digitalWrite(trigger, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigger, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigger, LOW);
+
+  long durata = pulseIn(echo, HIGH);
+
+  float distanza = (durata * 0.0343) / 2;
+
+  Serial.print(distanza);
+  Serial.println(" cm");
+
+
+  delay(1000);
+}
