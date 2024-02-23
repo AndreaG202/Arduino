@@ -1,7 +1,14 @@
-#include "WiFiS3.h"
-#include "arduino_secrets.h" 
-char ssid[] = "TIM-27790097";      
-char pass[] = "Ty58Yn6Tf273";    
+#include "WiFiS3.h" 
+//#include "arduino_secrets.h" 
+/*per usare questo (#include "arduino_secrets.h") creare unaltra pagina chiamata arduino_secrets.h in cui scrivo
+allinterno :
+
+#define SECRET_SSID "NOME WIFI"
+#define SECRET_PASS "PASSWORD WIFI"
+
+*/
+char ssid[] = "NOME WIFI ";      
+char pass[] = "PASSWORD WIFI";    
 int keyIndex = 0;              
 
 int status = WL_IDLE_STATUS;
