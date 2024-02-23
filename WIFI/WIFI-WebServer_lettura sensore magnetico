@@ -1,3 +1,6 @@
+
+//Nel monitor seriale verrà stampato un indirizzo ip che va inserito nel browser
+
 #include "WiFiS3.h" 
 //#include "arduino_secrets.h" 
 /*per usare questo (#include "arduino_secrets.h") creare unaltra pagina chiamata arduino_secrets.h in cui scrivo
