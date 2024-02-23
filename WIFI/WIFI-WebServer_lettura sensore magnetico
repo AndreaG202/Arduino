@@ -1,0 +1,87 @@
+#include "WiFiS3.h"
+#include "arduino_secrets.h" 
+char ssid[] = "TIM-27790097";      
+char pass[] = "Ty58Yn6Tf273";    
+int keyIndex = 0;              
+
+int status = WL_IDLE_STATUS;
+
+WiFiServer server(80);
+
+void setup() {
+
+  Serial.begin(9600);
+  while (!Serial) {
+  }
+
+  if (WiFi.status() == WL_NO_MODULE) {
+    Serial.println("Communication with WiFi module failed!");
+    while (true);
+  }
+
+  String fv = WiFi.firmwareVersion();
+  if (fv < WIFI_FIRMWARE_LATEST_VERSION) {
+    Serial.println("Please upgrade the firmware");
+  }
+  while (status != WL_CONNECTED) {
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    status = WiFi.begin(ssid, pass);
+    delay(5000);
+  }
+  server.begin();
+  printWifiStatus();
+}
+
+
+void loop() {
+  WiFiClient client = server.available();
+  if (client) {
+    Serial.println("new client");
+    boolean currentLineIsBlank = true;
+    while (client.connected()) {
+      if (client.available()) {
+        char c = client.read();
+        Serial.write(c);
+        if (c == '\n' && currentLineIsBlank) {
+         
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close"); 
+          client.println("Refresh: 2");  
+          client.println();
+          client.println("<!DOCTYPE HTML>");
+          client.println("<html>");
+    
+            int sensorReading = digitalRead(7);
+            client.print("Valore sensore magnetico : ");
+            client.print(sensorReading);
+            client.println("<br />");
+          client.println("</html>");
+          break;
+        }
+        if (c == '\n') {        
+          currentLineIsBlank = true;
+        } else if (c != '\r') {
+          currentLineIsBlank = false;
+        }
+      }
+    }
+    delay(1);
+    client.stop();
+    Serial.println("client disconnected");
+  }
+}
+
+
+void printWifiStatus() {
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+  IPAddress ip = WiFi.localIP();
+  Serial.print("IP Address: ");
+  Serial.println(ip);
+  long rssi = WiFi.RSSI();
+  Serial.print("signal strength (RSSI):");
+  Serial.print(rssi);
+  Serial.println(" dBm");
+}
